@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniWithReact.Server", "UniWithReact.Server\UniWithReact.Server.csproj", "{F2797D19-B236-4212-977E-6E95DCCAECBB}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "uniwithreact.client", "uniwithreact.client\uniwithreact.client.esproj", "{DA72AF79-CE4E-49DE-9E91-FBD8E918758B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F2797D19-B236-4212-977E-6E95DCCAECBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2797D19-B236-4212-977E-6E95DCCAECBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2797D19-B236-4212-977E-6E95DCCAECBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2797D19-B236-4212-977E-6E95DCCAECBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA72AF79-CE4E-49DE-9E91-FBD8E918758B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA72AF79-CE4E-49DE-9E91-FBD8E918758B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA72AF79-CE4E-49DE-9E91-FBD8E918758B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{DA72AF79-CE4E-49DE-9E91-FBD8E918758B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA72AF79-CE4E-49DE-9E91-FBD8E918758B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA72AF79-CE4E-49DE-9E91-FBD8E918758B}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B43E43ED-82F4-4847-8207-D769FED5F5B0}
+	EndGlobalSection
+EndGlobal

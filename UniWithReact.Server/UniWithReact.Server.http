@@ -1,0 +1,6 @@
+@UniWithReact.Server_HostAddress = http://localhost:5186
+
+GET {{UniWithReact.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
