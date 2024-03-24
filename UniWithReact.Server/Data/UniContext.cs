@@ -6,11 +6,11 @@ namespace UniWithReact.Server.Data
     public class UniContext:DbContext
     {
         public UniContext(DbContextOptions<UniContext> options) : base(options) { }
-        DbSet<Student> Students { get; set; }
-        DbSet<Course> Courses { get; set; }
-        DbSet<Instructor> Instructors { get; set; }
-        DbSet<Department> Departments { get; set; }
-        DbSet<Enrollment> Enrollments { get; set; }
-        DbSet<OfficeAssignment> OfficeAssignments { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Instructor> Instructors { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Enrollment> Enrollments { get; set; }
+        public DbSet<OfficeAssignment> OfficeAssignments { get; set; }
     }
 }
