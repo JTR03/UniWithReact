@@ -11,6 +11,18 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<UniContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("UniContext") ?? throw new InvalidOperationException("UniContes is not found")
 ));
+string MyAllowedOrigins = "_myAllowedSpecificOrign";
+
+builder.Services.AddCors(option =>
+{
+    option.AddPolicy(
+        name: MyAllowedOrigins,
+        builder =>
+        {
+            builder.WithOrigins("http:example.com", "*");
+        }
+        );
+});
 
 var app = builder.Build();
 
