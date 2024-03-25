@@ -29,6 +29,9 @@ app.UseHttpsRedirection();
 app.MapFallbackToFile("/index.html");
 
 StudentEndpoint.Map(app);
+CourseEndpoints.Map(app);
+InstructorEndpoint.Map(app);
+DepartmentEndpoint.Map(app);
 
 app.Run();
 
