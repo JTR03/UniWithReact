@@ -11,21 +11,13 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import TableHead from "@mui/material/TableHead";
-import FormDialog from "../FormDialog";
 
-export default function StudentDisplay({ data }) {
+export default function StudentDisplay({ data, handleStudent, onAdd,onDelete }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [open, setOpen] = React.useState(false);
 
-  const handleOpen = () => {
-    setOpen(true);
-    };
-    
-    const handleClose = () => {
-        setOpen(false)
-    }
 
+ 
   const columns = [
     { field: "firstName", headerName: "First Name" },
 
@@ -49,13 +41,16 @@ export default function StudentDisplay({ data }) {
 
   return (
     <>
+      <Button variant="contained" onClick={() =>onAdd(true)}>
+        ADD
+      </Button>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
           <TableHead>
             <TableRow>
               {columns.map((column) => (
                 <TableCell
-                  key={column.id}
+                  key={column.headerName}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >
@@ -75,13 +70,13 @@ export default function StudentDisplay({ data }) {
                 </TableCell>
                 <TableCell style={{ width: 160 }}>{student.lastName}</TableCell>
                 <TableCell style={{ width: 160 }}>
-                  {student.enrollmentDate}
+                  {new Date(student.enrollmentDate).toLocaleDateString()}
                 </TableCell>
                 <TableCell style={{ width: 160 }}>
                   <ButtonGroup variant="text" aria-label="Basic button group">
-                    <Button onClick={handleOpen}>Edit</Button>
+                    <Button onClick={() => handleStudent(true,student)}>Edit</Button>
                     <Button>Details</Button>
-                    <Button>Delete</Button>
+                    <Button onClick={()=>onDelete(student.studentID)}>Delete</Button>
                   </ButtonGroup>
                 </TableCell>
               </TableRow>
@@ -115,12 +110,15 @@ export default function StudentDisplay({ data }) {
             </TableRow>
           </TableFooter>
         </Table>
-          </TableContainer>
-          <FormDialog open={open} handleClose={handleClose}/>
+      </TableContainer>
+ 
     </>
   );
 }
 
 StudentDisplay.propTypes = {
   data: PropTypes.array.isRequired,
+  handleStudent: PropTypes.func.isRequired,
+  onAdd: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };

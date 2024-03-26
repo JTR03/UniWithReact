@@ -7,8 +7,17 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import DatePickerComponents from "./DatePicker";
+import dayjs from "dayjs";
 
-export default function FormDialog({ open, handleClose }) {
+export default function FormDialog({
+  open,
+  handleClose,
+  student,
+  onUpdate,
+  title,
+  onAdd,
+}) {
   return (
     <React.Fragment>
       <Dialog
@@ -20,33 +29,62 @@ export default function FormDialog({ open, handleClose }) {
             event.preventDefault();
             const formData = new FormData(event.currentTarget);
             const formJson = Object.fromEntries(formData.entries());
-            const email = formJson.email;
-            console.log(email);
+            if (student.studentID) {
+              onUpdate({
+                studentID: student.studentID,
+                firstName: formJson.firstName,
+                lastName: formJson.lastName,
+              });
+            } else {
+              onAdd(formJson);
+            }
+
             handleClose();
           },
         }}
       >
-        <DialogTitle>Subscribe</DialogTitle>
+        <DialogTitle>{title}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
+            {student.studentID
+              ? `Update ${student.fullName} in the database`
+              : "Add a new student to the database"}
           </DialogContentText>
           <TextField
             autoFocus
             required
             margin="dense"
-            id="name"
-            name="email"
-            label="Email Address"
-            type="email"
+            id="firstName"
+            name="firstName"
+            label="First Name"
+            defaultValue={student.firstName}
+            type="text"
             fullWidth
             variant="standard"
           />
+          <TextField
+            autoFocus
+            required
+            margin="dense"
+            id="lastName"
+            name="lastName"
+            label="Last Name"
+            type="text"
+            defaultValue={student.lastName}
+            fullWidth
+            variant="standard"
+          />
+          
+            <DatePickerComponents
+              date={dayjs(
+                new Date(student.enrollmentDate).toLocaleDateString()
+              )}
+            />
+          
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button type="submit">Subscribe</Button>
+          <Button type="submit">{student.studentID ? "Update" : "Add"}</Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>
@@ -56,4 +94,8 @@ export default function FormDialog({ open, handleClose }) {
 FormDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
+  student: PropTypes.object.isRequired,
+  onUpdate: PropTypes.func.isRequired,
+  title: PropTypes.string,
+  onAdd: PropTypes.func.isRequired,
 };
