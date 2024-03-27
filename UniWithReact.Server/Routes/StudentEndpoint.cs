@@ -38,7 +38,7 @@ namespace UniWithReact.Server.Routes
             });
             app.MapDelete("/Students/{id}", async (UniContext db, int id) =>
             {
-                var student = db.Students.Find(id);
+                var student = await db.Students.FindAsync(id);
                 if(student == null)
                 {
                     return Results.NotFound();

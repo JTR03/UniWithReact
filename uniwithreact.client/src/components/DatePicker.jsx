@@ -1,7 +1,7 @@
 // import { styled } from "@mui/material/styles";
 // import Tooltip from "@mui/material/Tooltip";
 // import Stack from "@mui/material/Stack";
-// import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
+import {  DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -19,10 +19,12 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 // });
 
 // eslint-disable-next-line react/prop-types
-export default function DatePickerComponents({ date }) {
+export default function DatePickerComponents({ date, name }) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DatePicker defaultValue={date} onChange={()=>}/>
+      <DemoItem label="Enrollment Date">
+        <DatePicker format="YYYY-MM-DD" defaultValue={date} name={name} />
+      </DemoItem>
     </LocalizationProvider>
   );
 }

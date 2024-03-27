@@ -51,7 +51,7 @@ const App = () => {
       body: JSON.stringify({
         firstName: studentToAdd.firstName,
         lastName: studentToAdd.lastName,
-        enrollmentDate: "2024-03-22",
+        enrollmentDate: studentToAdd.enrollmentDate,
       }),
     })
       .then((res) => res.json())

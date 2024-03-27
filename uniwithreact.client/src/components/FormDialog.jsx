@@ -10,14 +10,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DatePickerComponents from "./DatePicker";
 import dayjs from "dayjs";
 
-export default function FormDialog({
-  open,
-  handleClose,
-  student,
-  onUpdate,
-  title,
-  onAdd,
-}) {
+const FormDialog = ({ open, handleClose, student, onUpdate, title, onAdd }) => {
   return (
     <React.Fragment>
       <Dialog
@@ -34,6 +27,7 @@ export default function FormDialog({
                 studentID: student.studentID,
                 firstName: formJson.firstName,
                 lastName: formJson.lastName,
+                enrollmentDate: formJson.enrollmentDate,
               });
             } else {
               onAdd(formJson);
@@ -74,13 +68,10 @@ export default function FormDialog({
             fullWidth
             variant="standard"
           />
-          
-            <DatePickerComponents
-              date={dayjs(
-                new Date(student.enrollmentDate).toLocaleDateString()
-              )}
-            />
-          
+          <DatePickerComponents
+            date={dayjs(new Date(student.enrollmentDate).toLocaleDateString())}
+            name="enrollmentDate"
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
@@ -89,7 +80,7 @@ export default function FormDialog({
       </Dialog>
     </React.Fragment>
   );
-}
+};
 
 FormDialog.propTypes = {
   open: PropTypes.bool.isRequired,
@@ -99,3 +90,5 @@ FormDialog.propTypes = {
   title: PropTypes.string,
   onAdd: PropTypes.func.isRequired,
 };
+
+export default FormDialog;
