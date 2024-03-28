@@ -65,6 +65,10 @@ export default defineConfig({
         target,
         secure: false,
       },
+      "^/instructors": {
+        target,
+        secure: false,
+      },
     },
     port: 5173,
     https: {

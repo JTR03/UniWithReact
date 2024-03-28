@@ -16,14 +16,7 @@ import Button from "@mui/material/Button";
 import { Link, Outlet } from "react-router-dom";
 
 const drawerWidth = 240;
-const navItems = [
-  "Home",
-  "Students",
-  "Courses",
-  "Instructors",
-  "Departments",
-  "Contact",
-];
+const navItems = ["Alumni", "Courses", "Professors", "Departments", "Contact"];
 
 const Home = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -51,7 +44,9 @@ const Home = () => {
 
   return (
     <div>
-      <Box sx={{ display: "flex" }}>
+      <Box
+        sx={{ display: "center", alignContent: "center", alignItems: "center" }}
+      >
         <CssBaseline />
         <AppBar component="nav">
           <Toolbar>
@@ -74,11 +69,8 @@ const Home = () => {
             </Typography>
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
               {navItems.map((item) => (
-                  <Button key={item} sx={{ color: "#fff" }}>
-                      <Link to={`/${item.toLowerCase()}`}>
-                          {item}
-                      </Link>
-                  
+                <Button key={item} sx={{ color: "#fff" }}>
+                  <Link to={`/${item.toLowerCase()}`}>{item}</Link>
                 </Button>
               ))}
             </Box>
@@ -104,8 +96,8 @@ const Home = () => {
           </Drawer>
         </nav>
       </Box>
+
       <Outlet />
-      <Typography>Welcome To University With React</Typography>
     </div>
   );
 };

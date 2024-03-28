@@ -1,5 +1,4 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -13,28 +12,29 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import TableHead from "@mui/material/TableHead";
 import { Await, useLoaderData } from "react-router-dom";
 import FormDialog from "../FormDialog";
-import { STUDENTS_API_URL } from "../Loaders/Loaders";
+import { INSTRUCTORS_API_URL } from "../Loaders/Loaders";
+import Details from "./Details";
 
 const headers = {
   "Content-type": "application/json",
 };
 
-export default function StudentDisplay() {
+const Instructors = () => {
   const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [open, setOpen] = React.useState(false);
   const [editing, setEditing] = React.useState({});
   const [title, setTitle] = React.useState("");
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleCreate = () => {
     setOpen(true);
-    setTitle("Add New Student");
+    setTitle("Add New Professor");
   };
 
-  const handleEdit = (student) => {
+  const handleEdit = (prof) => {
     setOpen(true);
-    setEditing(student);
-    setTitle("Edit Student");
+    setEditing(prof);
+    setTitle("Edit Professor");
   };
 
   const handleClose = () => {
@@ -42,32 +42,29 @@ export default function StudentDisplay() {
     setEditing({});
   };
 
-  const handleAdd = (studentToAdd) => {
-    console.log(studentToAdd);
-    fetch(STUDENTS_API_URL, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({
-        firstName: studentToAdd.firstName,
-        lastName: studentToAdd.lastName,
-        enrollmentDate: studentToAdd.enrollmentDate,
-      }),
-    })
+  const getInstructor = (id) => {
+    fetch(`${INSTRUCTORS_API_URL}/${id}`)
       .then((res) => res.json())
+      .then((data = console.log(data)))
       .catch((err) => console.log(err));
   };
 
-  const handleUpdate = (updatedStudent) => {
-    console.log(updatedStudent);
-    fetch(`${STUDENTS_API_URL}/${updatedStudent.studentID}`, {
+
+  const handleUpdate = (updatedProf) => {
+    console.log(updatedProf);
+    fetch(`${INSTRUCTORS_API_URL}/${updatedProf.instructorID}`, {
       method: "PUT",
       headers,
-      body: JSON.stringify(updatedStudent),
+      body: JSON.stringify({
+        firstName: updatedProf.firstName,
+        lastName: updatedProf.lastName,
+        hireDate: updatedProf.enrollmentDate,
+      }),
     }).catch((err) => console.log(err));
   };
 
   const handleDelete = (id) => {
-    fetch(`${STUDENTS_API_URL}/${id}`, {
+    fetch(`${INSTRUCTORS_API_URL}/${id}`, {
       method: "DELETE",
       headers,
     }).catch((err) => console.log(err));
@@ -80,7 +77,7 @@ export default function StudentDisplay() {
 
     { field: "lastName", headerName: "Last Name" },
 
-    { field: "enrollmentDate", headerName: "Enrollment Date" },
+    { field: "hireDate", headerName: "Hire Date" },
   ];
 
   // Avoid a layout jump when reaching the last page with empty rows.
@@ -103,10 +100,7 @@ export default function StudentDisplay() {
           ADD
         </Button>
         <TableContainer component={Paper}>
-          <Table
-            sx={{ minWidth: 500, justifyContent: "center" }}
-            aria-label="custom pagination table"
-          >
+          <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
             <TableHead>
               <TableRow>
                 {columns.map((column) => (
@@ -127,22 +121,30 @@ export default function StudentDisplay() {
                     page * rowsPerPage + rowsPerPage
                   )
                 : data
-              ).map((student) => (
-                <TableRow key={student.studentID}>
+              ).map((proffesor) => (
+                <TableRow key={proffesor.instructorID}>
                   <TableCell component="th" scope="row">
-                    {student.firstName}
+                    {proffesor.firstName}
                   </TableCell>
                   <TableCell style={{ width: 160 }}>
-                    {student.lastName}
+                    {proffesor.lastName}
                   </TableCell>
                   <TableCell style={{ width: 160 }}>
-                    {new Date(student.enrollmentDate).toLocaleDateString()}
+                    {new Date(proffesor.hireDate).toLocaleDateString()}
                   </TableCell>
                   <TableCell style={{ width: 160 }}>
                     <ButtonGroup variant="text" aria-label="Basic button group">
-                      <Button onClick={() => handleEdit(student)}>Edit</Button>
-                      <Button>Details</Button>
-                      <Button onClick={() => handleDelete(student.studentID)}>
+                      <Button onClick={() => handleEdit(proffesor)}>
+                        Edit
+                      </Button>
+                      <Button
+                        onClick={() => getInstructor(proffesor.instructorID)}
+                      >
+                        Details
+                      </Button>
+                      <Button
+                        onClick={() => handleDelete(proffesor.instructorID)}
+                      >
                         Delete
                       </Button>
                     </ButtonGroup>
@@ -186,15 +188,11 @@ export default function StudentDisplay() {
         student={editing}
         onUpdate={handleUpdate}
         title={title}
-        onAdd={handleAdd}
+        // onAdd={handleAdd}
       />
+      <Details />
     </React.Suspense>
   );
-}
-
-StudentDisplay.propTypes = {
-  data: PropTypes.array.isRequired,
-  handleStudent: PropTypes.func.isRequired,
-  onAdd: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
 };
+
+export default Instructors;

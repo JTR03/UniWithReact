@@ -12,11 +12,12 @@ import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import TableHead from "@mui/material/TableHead";
 import Typography from "@mui/material/Typography";
+import { useLoaderData } from 'react-router-dom';
 
-const Courses = ({data,onAdd,onDelete,onEdit}) => {
+const Courses = ({onAdd,onDelete,onEdit}) => {
  const [page, setPage] = React.useState(0);
  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
+  let data = useLoaderData();
     const columns = [
         { field: "id", headerName: "Number" },
       
