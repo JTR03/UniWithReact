@@ -1,15 +1,21 @@
 import { useState, useEffect } from "react";
-import StudentDisplay from "./components/students/Display";
+import StudentDisplay from "./components/Pages/Students";
 import "./App.css";
 import FormDialog from "./components/FormDialog";
+import Departments from "./components/Pages/Departments";
+import Courses from "./components/Pages/Courses";
 
 const API_URL = "/students";
+const DEPARTMENTS_API_URL = "/departments";
+const COURSES_API_URL = "/courses";
 const headers = {
   "Content-type": "application/json",
 };
 
 const App = () => {
   const [students, setStudents] = useState([]);
+  const [courses, setCourses] = useState([]);
+  const [department, setDepartment] = useState([]);
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState({});
   const [title, setTitle] = useState("");
@@ -31,14 +37,34 @@ const App = () => {
   };
 
   useEffect(() => {
-    fetchStudents();
+    // fetchStudents();
+    fetchDepartments();
+    fetchCourses();
   }, []);
 
-  const fetchStudents = () => {
-    fetch(API_URL)
+  // const fetchStudents = () => {
+  //   fetch(API_URL)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setStudents(data, console.log(data));
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+
+  const fetchDepartments = () => {
+    fetch(DEPARTMENTS_API_URL)
       .then((res) => res.json())
       .then((data) => {
-        setStudents(data, console.log(data));
+        setDepartment(data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const fetchCourses = () => {
+    fetch(COURSES_API_URL)
+      .then((res) => res.json())
+      .then((data) => {
+        setCourses(data, console.log(data));
       })
       .catch((err) => console.log(err));
   };
@@ -99,6 +125,9 @@ const App = () => {
         title={title}
         onAdd={handleAdd}
       />
+
+      <Departments data={department} />
+      <Courses data={courses} />
     </div>
   );
 };
